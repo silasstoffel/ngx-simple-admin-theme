@@ -1,20 +1,33 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { SessionService } from '../services/session.service';
 
 
 @Injectable()
 
 export class AuthGuardService implements CanActivate {
-  constructor() { }
+
+  constructor(private session: SessionService, private router: Router) { }
 
   canActivate(router: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {
-    return new Observable<true>();
+    // Load data session from local storage file
+    const session = this.session.active();
+    if (session && session.authorized) {
+      return new Observable<boolean>(observer => {
+        observer.next(true);
+      });
+    }
+    this.setUnauthorized();
+    return new Observable<boolean>(observer => {
+      observer.next(false);
+    });
   }
 
-  setCanNot() : Observable<boolean> {
-    // https://gitlab.com/silasstofel/sistema-longitude/-/blob/master/src/app/shared/services/auth.guard.service.ts
-    return new Observable<true>();
+  setUnauthorized() {
+    this.session.destroy();
+    this.router.navigate(['/signin']);
   }
 
 }

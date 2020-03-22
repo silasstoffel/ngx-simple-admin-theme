@@ -1,8 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { environment } from '../../environments/environment';
 import Session from '../models/Session';
 import User from '../models/User';
 
@@ -10,34 +9,86 @@ import User from '../models/User';
 export class SessionService {
 
   sessionEmmiter = new  EventEmitter<Session>();
-  authorized = false;
+  static authorized = false;
+  private static baseUrl;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+  ) {
+    SessionService.baseUrl = `${environment.base_url}/auth`;
+   }
 
   emitEventSession(event: Session) {
     this.sessionEmmiter.emit(event);
   }
 
-  store(name = '@app[session]') {
-
+  active(name = '@app[session]'): Session {
+    const fs = localStorage.getItem(name);
+    if (!fs) {
+      // Remove local storage file
+      this.destroy();
+      return null;
+    }
+    const session = JSON.parse(fs);
+    if (typeof(session.authorized) === 'undefined' || !session.authorized) {
+      this.destroy();
+      return null;
+    }
+    // Send event of all subscriptions
+    this.emitEventSession(session);
+    return session;
   }
 
-  start() {
-      const session = new Session();
-      session.authorized = true;
-      session.token = 'token_data_info';
-      session.expire_in = '2021-12-31T22:30:42.000';
-      const user = new User();
-      user.email = 'mestre@tagtec.com';
-      user.group_id = 1;
-      user.id = 1;
-      user.name = 'Mestre dos Magos';
-      session.user = user;
+  store(data, name = '@app[session]') {
+    localStorage.setItem(name, JSON.stringify(data));
+  }
+
+  async start(data: any) {
+      try {
+        if (!data.email || !data.password) {
+          throw new Error('E-mail e senha são obrigatório');
+        }
+        const sd = await this.authenticate(data);
+        SessionService.authorized = true;
+        const session = new Session();
+        session.authorized = true;
+        session.token = 'token_data_info';
+        const user = new User();
+        user.email = 'mestre@tagtec.com.br';
+        user.id = 1;
+        user.name = 'Mestre TagTec';
+        session.user = user;
+        this.store(session);
+        this.emitEventSession(session);
+        return session;
+      } catch (e) {
+        throw e;
+      }
+  }
+
+  destroy(name = '@app[session]') {
+    localStorage.removeItem(name);
+    SessionService.authorized = false;
+    const session = new Session();
+    session.authorized = false;
+    session.token = null;
+    const user = new User();
+    user.email = null;
+    user.group_id = null;
+    user.id = null;
+    user.name = null;
+    session.user = user;
+    this.emitEventSession(session);
+  }
+
+  private async authenticate(data) {
+    try {
+      const session = await this.http.post(SessionService.baseUrl, data).toPromise();
       return session;
-  }
-
-  destroy() {
-
+    } catch (e) {
+      throw e;
+    }
   }
 
 }

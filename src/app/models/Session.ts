@@ -6,7 +6,6 @@ export default class Session {
   token: string;
   authorized: boolean;
   user: User;
-  expire_in: string;
 
   constructor() {}
 }

@@ -1,46 +1,27 @@
-<div class="row">
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="form-signin">
 
-  <div class="col"></div>
+      <div class="text-center mb-4">
+        <img class="mb-4" src="/assets/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Admin</h1>
+      </div>
 
-  <div class="col">
 
+      <div class="form-label-group">
+        <input type="email" class="form-control" placeholder="E-mail" formControlName="email" id="email" autofocus/>
+        <label for="email">E-mail</label>
+      </div>
 
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="form-label-group">
+        <input type="password" class="form-control" placeholder="Senha" formControlName="password" id="email"/>
+        <label for="password">Senha</label>
+      </div>
 
-      <p>
-        <label for="firstname">First Name </label>
-        <input type="text" id="firstname" name="firstname" formControlName="firstname">
-      </p>
+      <button type="submit" class="btn btn-primary">Login</button>
 
-      <p>
-        <label for="lastname">Last Name </label>
-        <input type="text" id="lastname" name="lastname" formControlName="lastname">
-      </p>
-
-      <p>
-        <label for="email">Email </label>
-        <input type="text" id="email" name="email" formControlName="email">
-      </p>
+      <hr class="mb"/>
 
       <p>
-        <label for="gender">Geneder </label>
-        <input type="radio" value="male" id="gender" name="gender" formControlName="gender"> Male
-        <input type="radio" value="female" id="gender" name="gender" formControlName="gender"> Female
+        <a href="/signup">Criar conta</a>
       </p>
 
-      <p>
-        <label for="isMarried">Married </label>
-        <input type="checkbox" id="isMarried" name="isMarried" formControlName="isMarried">
-      </p>
-
-      <p>
-        <button type="submit">Submit</button>
-      </p>
-
-    </form>
-
-
-  </div>
-
-  <div class="col"></div>
-</div>
+</form>

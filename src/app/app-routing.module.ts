@@ -6,18 +6,20 @@ import  { SignUpComponent }  from './components/sign-up/signup.component';
 import  { SignInComponent }  from './components/sign-in/signin.component';
 
 // Services
- import {AuthGuardService} from './services/auth.guard.service'
+ import { AuthGuardService } from './services/auth.guard.service'
 
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuardService] },
   { path: 'signup', component: SignUpComponent },
   { path: 'signin', component: SignInComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuardService] },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
+const enableTracing = false;
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
