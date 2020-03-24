@@ -15,16 +15,21 @@ export class ApiService {
     this.baseUrl = api.api_url;
   }
 
-  post(url: string, data: any = {}):Observable<any> {
+ /**
+  * Efetua requisição do tipo POST
+  * @param url Sufixo url (sem host)
+  * @param data Parametros enviados na requisição
+  */
+  post(url: string, data: object = {}):Observable<any> {
     return this.http.post(`${this.baseUrl}${url}`, data);
   }
 
   /**
-   * Efetua requisição do tipo post
-   * @param url Sufixo url
+   * Efetua requisição do tipo POST
+   * @param url Sufixo url (sem host)
    * @param data Parametros enviados na requisição
    */
-  async postAsync(url: string, data: any = {}):Promise<any> {
+  async postAsync(url: string, data: object = {}):Promise<any> {
     try {
       return await this.http.post(`${this.baseUrl}${url}`, data).toPromise();
     } catch (e) {
@@ -32,12 +37,17 @@ export class ApiService {
     }
   }
 
-  put(url: string, data: any = {}):Observable<any> {
+  /**
+   * Efetua requisição do tipo PUT
+   * @param url Sufixo url (sem host)
+   * @param data Parametros enviados na requisição
+   */
+  put(url: string, data: object = {}):Observable<any> {
     return this.http.put(`${this.baseUrl}${url}`, data);
   }
 
   /**
-   * Efetua requisição do tipo put
+   * Efetua requisição do tipo PUT
    * @param url Sufixo url
    * @param data Parametros enviados na requisição
    */
@@ -49,10 +59,18 @@ export class ApiService {
     }
   }
 
+  /**
+   * Efetua requisição do tipo GET
+   * @param url Sufixo url
+   */
   get(url: string):Observable<any> {
     return this.http.get(`${this.baseUrl}${url}`);
   }
 
+  /**
+   * Efetua requisição do tipo GET
+   * @param url Sufixo url
+   */
   async getAsync(url: string):Promise<any> {
     try {
       return await this.http.get(`${this.baseUrl}${url}`).toPromise();
