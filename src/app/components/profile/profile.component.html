@@ -15,7 +15,7 @@
   </div>
 
   <div class="form-label-group">
-    <input type="text" class="form-control" placeholder="Celular" formControlName="mobile_phone" id="mobile_phone"/>
+    <input type="text" [mask]="ngxMask.brCelular" class="form-control" placeholder="Celular" [formControl]="profileForm.controls['mobile_phone']" id="mobile_phone"/>
     <label for="mobile_phone">Celular</label>
   </div>
 

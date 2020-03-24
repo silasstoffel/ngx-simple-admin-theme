@@ -6,6 +6,8 @@ import { SessionService } from '../../services/session.service';
 import { ApiService } from '../../services/api.service';
 import { UtilsService } from '../../services/utils.service';
 
+import ngxMask from '../../config/ngx-mask';
+
 @Component({
   selector: 'profile',
   templateUrl: 'profile.component.html',
@@ -15,14 +17,14 @@ import { UtilsService } from '../../services/utils.service';
 export class ProfileComponent implements OnInit {
 
   public profileForm;
+  public ngxMask = ngxMask;
 
   constructor(
     private api: ApiService,
     private utils: UtilsService,
     private fb: FormBuilder,
-    private router: Router,
     private session: SessionService,
-  ) { }
+  ) {}
 
   async ngOnInit() {
     this.utils.flashInfo('Carregando...');

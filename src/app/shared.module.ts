@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { NgxMaskModule } from 'ngx-mask';
 
 // Services
 import { AuthGuardService } from './services/auth.guard.service';
@@ -25,19 +26,20 @@ import { AuthHttpInterceptor } from './resources/auth-http-interceptor';
       CommonModule,
       HttpClientModule,
       BrowserAnimationsModule,
+      FormsModule,
       BsDropdownModule.forRoot(),
       CollapseModule.forRoot(),
       ToastrModule.forRoot(toastConfig),
-      FormsModule,
-      ReactiveFormsModule
+      NgxMaskModule.forRoot()
     ],
     exports: [
       CommonModule,
       BsDropdownModule,
+      FormsModule,
+      ReactiveFormsModule,
       CollapseModule,
       ToastrModule,
-      FormsModule,
-      ReactiveFormsModule
+      NgxMaskModule
     ],
     providers: [
       ToastrService,

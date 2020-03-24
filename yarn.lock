@@ -5377,6 +5377,13 @@ ngx-bootstrap@^5.5.0:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-5.5.0.tgz#29646053a7ff8c4b1d51704c841f926d74e3a7ea"
   integrity sha512-BJeghbkKFQl49sg3GIYQyjvwaHn64xFOsinBVD8HWKOVpRJSnuafrjXByGDtfq35jGY4R+7iBLksM1IYLUPshg==
 
+ngx-mask@^8.1.7:
+  version "8.1.7"
+  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-8.1.7.tgz#337e7fac6d63c5cb168e2ef3f237ae3dfcb6c3b9"
+  integrity sha512-hCBH416Lf1DNu/lnMrlpaC3an69RPfp8m36O19+Rz3/rdH8ndHkVAbcGvSyOffh74Ri7Zs+qeUzsFpFq2A5CWQ==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-toastr@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-12.0.0.tgz#1b35a4e5b785246c558e091c831a26ebf211cfd7"
