@@ -1,8 +1,7 @@
-<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form-signin">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-signin">
 
   <div class="text-center mb-4">
-    <img class="mb-4" src="/assets/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Criar Conta</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Atualizar Conta</h1>
   </div>
 
   <div class="form-label-group">
@@ -11,7 +10,7 @@
   </div>
 
   <div class="form-label-group">
-    <input type="email" class="form-control" placeholder="E-mail" formControlName="email" id="email"/>
+    <input type="email" class="form-control" placeholder="E-mail" formControlName="email" id="email" readonly/>
     <label for="email">E-mail</label>
   </div>
 
@@ -30,12 +29,6 @@
     <label for="password_confirm">Confirmação de Senha</label>
   </div>
 
-  <button type="submit" class="btn btn-success">Criar Conta</button>
-
-  <hr />
-
-  <p>
-    <a href="/signin">Login</a>
-  </p>
+  <button type="submit" class="btn btn-success">Salvar</button>
 
 </form>

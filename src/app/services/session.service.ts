@@ -1,9 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import Session from '../models/Session';
 import User from '../models/User';
+import api from '../config/api';
 
 @Injectable()
 export class SessionService {
@@ -13,30 +12,43 @@ export class SessionService {
   private static baseUrl;
 
   constructor(
-    private router: Router,
     private http: HttpClient,
   ) {
-    SessionService.baseUrl = `${environment.base_url}/auth`;
+    SessionService.baseUrl = `${api.api_url}/auth`;
    }
 
   emitEventSession(event: Session) {
     this.sessionEmmiter.emit(event);
   }
 
-  active(name = '@app[session]'): Session {
+  stored(name:string = '@app[session]'): Session {
     const fs = localStorage.getItem(name);
     if (!fs) {
-      // Remove local storage file
-      this.destroy();
       return null;
     }
     const session = JSON.parse(fs);
-    if (typeof(session.authorized) === 'undefined' || !session.authorized) {
-      this.destroy();
+    return session;
+  }
+
+  active(autoDestroy = true, setEventEmitter:boolean = true, name = '@app[session]'): Session {
+    const session = this.stored(name);
+    if (session == null) {
+      if (autoDestroy) {
+        // Remove local storage file
+        this.destroy();
+      }
       return null;
     }
-    // Send event of all subscriptions
-    this.emitEventSession(session);
+    if (typeof(session.authorized) === 'undefined' || !session.authorized) {
+      if (autoDestroy) {
+        this.destroy();
+      }
+      return null;
+    }
+    if (setEventEmitter) {
+      // Send event of all subscriptions
+      this.emitEventSession(session);
+    }
     return session;
   }
 
@@ -53,11 +65,11 @@ export class SessionService {
         SessionService.authorized = true;
         const session = new Session();
         session.authorized = true;
-        session.token = 'token_data_info';
+        session.token = sd.token;
         const user = new User();
-        user.email = 'mestre@tagtec.com.br';
-        user.id = 1;
-        user.name = 'Mestre TagTec';
+        user.email = sd.user.email;
+        user.id = sd.user.id;
+        user.name = sd.user.name;
         session.user = user;
         this.store(session);
         this.emitEventSession(session);
@@ -82,7 +94,7 @@ export class SessionService {
     this.emitEventSession(session);
   }
 
-  private async authenticate(data) {
+  private async authenticate(data): Promise<any> {
     try {
       const session = await this.http.post(SessionService.baseUrl, data).toPromise();
       return session;

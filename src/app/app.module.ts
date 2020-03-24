@@ -6,27 +6,34 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from '../app/shared.module';
 
 // Components
 import { AppComponent } from './components/main/app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { SignInComponent } from './components/sign-in/signin.component';
-import {  DashboardComponent} from './components/dashboard/dashboard.component';
+import { SignUpComponent } from './components/sign-up/signup.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 // Services
 import { AuthGuardService } from './services/auth.guard.service';
 import { SessionService } from './services/session.service';
 import { UtilsService } from './services/utils.service';
+import { ApiService } from './services/api.service';
 
+// Others
+import { AuthHttpInterceptor } from './resources/auth-http-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     SignInComponent,
-    DashboardComponent
+    SignUpComponent,
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,9 @@ import { UtilsService } from './services/utils.service';
   providers: [
     AuthGuardService,
     SessionService,
-    UtilsService
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    UtilsService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

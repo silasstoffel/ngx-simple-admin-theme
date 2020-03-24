@@ -6,21 +6,36 @@ export class UtilsService {
 
   constructor(private toastr: ToastrService) { }
 
-
-  flashInfo(message, title = '') {
+  flashInfo(message, title = '', clear = false) {
+    if (clear) {
+      this.flashClear();
+    }
     this.toastr.info(message, title);
   }
 
-  flashSuccess(message, title = '') {
+  flashSuccess(message, title = '', clear = false) {
+    if (clear) {
+      this.flashClear();
+    }
     this.toastr.success(message, title);
   }
 
-  flashWarning(message, title = '') {
+  flashWarning(message, title = '', clear = false) {
+    if (clear) {
+      this.flashClear();
+    }
     this.toastr.warning(message, title);
   }
 
-  flashError(message, title = '') {
+  flashError(message, title = '', clear = false) {
+    if (clear) {
+      this.flashClear();
+    }
     this.toastr.error(message, title);
+  }
+
+  flashClear(id?:number) {
+    this.toastr.clear(id);
   }
 
   showHttpResponseError(data: any, toastrAlert = true) {
@@ -38,7 +53,7 @@ export class UtilsService {
     }
 
     if (toastrAlert) {
-      this.flashError(error.message, 'Erro');
+      this.flashError(error.message, 'Erro', true);
     }
 
     return error;

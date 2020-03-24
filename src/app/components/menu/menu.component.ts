@@ -19,7 +19,9 @@ export class MenuComponent implements OnInit {
     private sessionService: SessionService,
     private router: Router,
     private utils: UtilsService
-  ) { }
+  ) {
+    this.user = new User();
+  }
 
   ngOnInit() {
     this.sessionService.sessionEmmiter.subscribe((session: Session) => {

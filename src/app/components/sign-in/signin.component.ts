@@ -8,7 +8,7 @@ import { UtilsService } from '../../services/utils.service';
 @Component({
   selector: 'sign-in',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.css']
+  styleUrls: ['../../styles/sign.css']
 })
 
 export class SignInComponent implements OnInit {
