@@ -1,27 +1,29 @@
-# SimpleAngular
+# NGX Simple Admin Theme
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.4.
+  
 
-## Development server
+Projeto criado com [Angular CLI](https://github.com/angular/angular-cli) versão 9.0.4. O Objetivo desse projeto é servir como base de estudo e/ou exemplo de um app codificado com [Angular](https://github.com/angular/angular).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Como backend, foi usado [Simple Backend Node](https://github.com/silasstoffel/simple-node-backend-1 ) codificado em [Node](https://github.com/nodejs/node).
 
-## Code scaffolding
+  
+O projeto tem funções básicas como:
+- Autenticação
+- Autorização
+- Criar contra
+- Alterar Conta
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Configuração
+Acesse `/src/assets/config/app.js` e edite  (api_url) o endereço que do backend:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+`{"secret_key":  "#suaCh@veS3creta$","api_url":  "http://localhost:3000"}`
 
-## Running unit tests
+Por fim, execute o `yarn` na raiz do projeto para baixar às dependências 
+ 
+## Executando o app
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Rode o `ng serve` em modo em desenvolvimento, após compilado,  abra seu navegador em `http://localhost:4200/`.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Para compilação em modo de produção basta consultar documentação do [Angular CLI](https://github.com/angular/angular-cli)   
+  
